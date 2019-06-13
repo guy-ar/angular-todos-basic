@@ -25,6 +25,7 @@ app.controller("todosCtrl", function($scope){
             }
         }
         return cnt;
+        
     }
 
     $scope.addItem = function() {

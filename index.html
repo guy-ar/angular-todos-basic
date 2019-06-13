@@ -17,24 +17,22 @@
     <div class="container" ng-controller="todosCtrl">
         <h1 class="text-center">TODO</h1>
         <form>
-            <div class="row mx-auto">
+            <div class="row mx-auto search-input">
                 <div class="col">
                     <input type="text" class="form-control" id="todoInput" placeholder="What's Next" ng-model="newItem">
-                </div>
-                <div class="col">
                     <button type="button" class="btn btn-outline-primary" ng-click="addItem();">Add Item</button>
                 </div>
             </div>
 
-            <div class="form-check row" ng-repeat="item in todoArr">
+            <div class="row" ng-repeat="item in todoArr">
                 <div class="col">
                     <!-- using ng-checked is not good enaough as we want the binding to be for both sides - if ite.done then checked and if cheked then item.don = true-->
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ng-model="item.done">
+                    <input class="" type="checkbox" value="" id="defaultCheck1" ng-model="item.done">
                     <label class="form-check-label done-{{item.done}}" for="defaultCheck1">
                         {{ item.text}}
                     </label>
                 </div>
-                <div class="col">
+                <div class="col-button">
                     <button type="button" class="btn btn-outline-warning" ng-click="cleanItem(item);">Clear</button>
                 </div>
             </div>

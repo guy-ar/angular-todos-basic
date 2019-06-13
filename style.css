@@ -8,6 +8,14 @@
     color: black;
 }
 
-.total-amt, .filter-grp {
+.total-amt, .filter-grp, .form-control {
     display: inline-block;
+}
+
+.search-input {
+    width: 50%;
+}
+
+.col-button {
+    width: 20%;
 }
