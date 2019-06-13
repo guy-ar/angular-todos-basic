@@ -15,22 +15,38 @@
 </head>
 <body ng-app="todosApp">
     <div class="container" ng-controller="todosCtrl">
-        <h1>TODO</h1>
-        <h5>{{ uncheckedSum() }} out of {{ total() }} items</h5>
-        <div class="form-check" ng-repeat="item in todoArr">
-            <!-- using ng-checked is not good enaough as we want the binding to be for both sides - if ite.done then checked and if cheked then item.don = true-->
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ng-model="item.done">
-            <label class="form-check-label done-{{item.done}}" for="defaultCheck1">
-                {{ item.text}}
-            </label>
-        </div>
-        <form action="">
-            <div class="form-group">
-                <label for="todoInput">New Task</label>
-                <input type="text" class="form-control" id="todoInput" placeholder="Enter ToDo task" ng-model="newItem">
+        <h1 class="text-center">TODO</h1>
+        <form>
+            <div class="row mx-auto">
+                <div class="col">
+                    <input type="text" class="form-control" id="todoInput" placeholder="What's Next" ng-model="newItem">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-primary" ng-click="addItem();">Add Item</button>
+                </div>
             </div>
-            <button type="button" class="btn btn-outline-primary" ng-click="addItem();">Add Item</button>
-            <button type="button" class="btn btn-outline-warning" ng-click="cleanDoneItems();">Remove Done items</button> 
+
+            <div class="form-check row" ng-repeat="item in todoArr">
+                <div class="col">
+                    <!-- using ng-checked is not good enaough as we want the binding to be for both sides - if ite.done then checked and if cheked then item.don = true-->
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ng-model="item.done">
+                    <label class="form-check-label done-{{item.done}}" for="defaultCheck1">
+                        {{ item.text}}
+                    </label>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-warning" ng-click="cleanItem(item);">Clear</button>
+                </div>
+            </div>
+        
+            <h5 class="total-amt">{{ uncheckedSum() }} items left</h5>
+            <div class="btn-group btn-group-sm filter-grp">
+                <button type="button" class="btn btn-outline-danger">All</button>
+                <button type="button" class="btn btn-outline">Active</button>
+                <button type="button" class="btn btn-outline">Completed</button>
+            </div>
+
+            <button type="button" class="btn btn-outline-danger" ng-click="cleanDoneItems();">Clean Completed Item</button> 
             <button type="button" class="btn btn-outline-danger" ng-click="removeAll();">Clean All Item</button> 
         </form>
     </div>
