@@ -19,3 +19,48 @@
 .col-button {
     width: 20%;
 }
+
+.my-list {
+    padding-inline-start: 0;
+}
+
+.my-list-item-check {
+    width: 80%;
+    display: block;
+}
+
+
+.my-list-item {
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    
+}
+
+.my-list-item-delete {
+    display: none;
+}
+/*.my-list-item:first-child {
+   border-top: 0;
+}*/
+
+.total {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.total-amt {
+    width: 70%;
+}
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+}
+.row:hover>.my-list-item-delete {
+    display: inline;
+}

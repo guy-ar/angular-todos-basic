@@ -15,44 +15,49 @@
 </head>
 <body ng-app="todosApp">
     <div class="container" ng-controller="todosCtrl">
-        <h1 class="text-center">TODO</h1>
-        <form>
-            <div class="mx-auto search-input">
-                <input type="text" class="form-control" id="todoInput" placeholder="What's Next" ng-model="newItem">
-                <button type="button" class="btn btn-outline-primary" ng-click="addItem();">Add Item</button>
-            </div>         
+        <h1 class="text-center">TODOs</h1>
+        
+        <form class="form-group mx-auto search-input my-5">
+                <input type="text" class="form-control mx-2" id="todoInput" placeholder="What's Next" ng-model="newItem" ng-enter="addItem();">
+                <!-- to add button we need to change the form class to form-inline-->
+                <!-- button type="button" class="btn btn-outline-primary" ng-click="addItem();">Add Item</button> -->
+        </form>
+           
             
-            <div class="list-container" ng-repeat="item in todoArr">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <input class="" type="checkbox" value="" id="defaultCheck1" ng-model="item.done">
-                        <label class="done-{{item.done}}" for="defaultCheck1">
+        <ul class="my-list">
+            <div class="row justify-content-center" ng-repeat="item in todoArr | filter:filterByState">
+                <li class="my-list-item my-list-item-check">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" value="" id="{{'todoCheck' + $index}}" ng-model="item.done">
+                        <label class="custom-control-label done-{{item.done}}" for="{{'todoCheck' + $index}}">
                             {{ item.text}}
-                        </label>
-                        <img class="rounded mx-auto" src="img/x-mark16-xxl.png" alt="" srcset="" ng-click="cleanItem(item);">
-
-                    </li>
-                </ul>
+                        </label>  
+                    </div>
+                </li>
+                <span class="my-list-item my-list-item-delete" ng-click="cleanItem(item);"><img src="img/x-mark16-xxl.png" alt="" srcset=""></span>
                 
             </div>
-
-            <div class="total">
-                <h5 class="total-amt">{{ uncheckedSum() }} items left</h5>
-                <div class="btn-group btn-group-sm filter-grp">
-                    <button type="button" class="btn btn-outline-danger">All</button>
-                    <button type="button" class="btn btn-outline">Active</button>
-                    <button type="button" class="btn btn-outline">Completed</button>
-                </div>
+        </ul>
             
-                <button type="button" class="btn btn-outline-danger" ng-click="cleanDoneItems();">Clean Completed Item</button> 
-                <button type="button" class="btn btn-outline-danger" ng-click="removeAll();">Clean All Item</button> 
+
+        <div class="total my-5 row justify-content-center">
+            <h5 class="total-amt">{{ uncheckedSum() }} items left</h5>
+            <div class="btn-group btn-group-sm filter-grp">
+                <button type="button" ng-class="{'btn': true, 'btn-outline-danger': true, 'active':stateQuery==-1}" ng-click="setFilterState(-1);">All</button>
+                <button type="button" ng-class="{'btn': true, 'btn-outline': true, 'active':stateQuery==0}"  ng-click="setFilterState(0);">Active</button>
+                <button type="button" ng-class="{'btn': true, 'btn-outline': true, 'active':stateQuery==1}" ng-click="setFilterState(1);">Completed</button>
             </div>
-        </form>
+        </div>
+
+        <footer class="my-5">
+            <button type="button" class="btn btn-outline-danger mx-3" ng-click="cleanDoneItems();">Clean Completed Item</button> 
+            <button type="button" class="btn btn-outline-danger mx-3" ng-click="removeAll();">Clean All Item</button> 
+        </footer>
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
