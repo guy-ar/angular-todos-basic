@@ -1,3 +1,5 @@
+/****************  This is not in use - it is kept as refernce to multi button message   ************* */
+
 app.controller("confirmationCtrl", function($scope) {
   $scope.confirmationDialogConfig = {};
   

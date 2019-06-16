@@ -77,7 +77,7 @@ app.controller("todosCtrl", function($scope){
                 }]
             };
             
-            $scope.confirmationDialog(item);
+            $scope.confirmationDialog();
         } else {
             $scope.deleteItem(item);
         }
@@ -107,11 +107,13 @@ app.controller("todosCtrl", function($scope){
 
     // *************************** - related to error message logic
 
-   
-    $scope.confirmationDialog = function(item) {
+     
+    $scope.confirmationDialog = function() {
         $scope.showDialog(true);
     };
+    
 
+     
     $scope.executeDialogAction = function(action, param) {
         if(typeof $scope[action] === "function") {
                   $scope[action](param);
@@ -143,9 +145,7 @@ app.controller("todosCtrl", function($scope){
         // reset to show all
         $scope.stateQuery=-1; 
     };
-      
-      
-      
+
     $scope.showDialog = function(flag) {
         jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
     };
