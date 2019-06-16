@@ -6,6 +6,7 @@
 .done-false {
     text-decoration: none;
     color: black;
+    font-weight: bold;
 }
 
 .total-amt, .filter-grp, .form-control {
@@ -25,7 +26,7 @@
 }
 
 .my-list-item-check {
-    width: 80%;
+    width: 90%;
     display: block;
 }
 
@@ -63,4 +64,12 @@ footer {
 }
 .row:hover>.my-list-item-delete {
     display: inline;
+}
+
+.open-dialog {
+  border-radius: 3px;
+  margin: 10px;
+}
+.confirmation-dialog {
+  display: none;
 }

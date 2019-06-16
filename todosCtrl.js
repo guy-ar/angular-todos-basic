@@ -1,9 +1,11 @@
 app.controller("todosCtrl", function($scope){
 
     $scope.stateQuery = -1;
-    
-
     $scope.todoArr = [];
+    // used for error message
+    $scope.confirmationDialogConfig = {};
+        
+   
     function Todo(text, done) {
         this.text = text;
         this.done = done;
@@ -56,33 +58,29 @@ app.controller("todosCtrl", function($scope){
     $scope.cleanItem = function(item) {
         
         if (!item.done) {
+            
+            /* try to open modal instead confirmation message 
             // set message and message ind
             if (confirm('ToDo item is not completed. Are you sure you want to delete it?')) {
                 // continue to delete it!
             } else {
                 return;
-            }
-        }
+            }*/
+            // set the message configuration
+            $scope.confirmationDialogConfig = {
+                title: "Caution!!!",
+                message: "ToDo is not completed. Are you sure you want to delete?",
+                buttons: [{
+                    label: "Delete",
+                    action: "deleteItem", 
+                    param: item
+                }]
+            };
             
-        
-        // go over the todos and look for the item
-        let index = -1;
-        for( let i=0, len= $scope.todoArr.length; i<len; i++){
-            if ($scope.todoArr[i] == item){
-                index = i;
-                break;
-            }
-        }
-        if (index == -1) {
-            console.error("cleanItem() faied to find item");
-            return;
+            $scope.confirmationDialog(item);
         } else {
-            // check if the item is still not done
-            
-            $scope.todoArr.splice(index, 1);
+            $scope.deleteItem(item);
         }
-        // reset to show all
-        $scope.stateQuery=-1;
         
     }
 
@@ -107,5 +105,49 @@ app.controller("todosCtrl", function($scope){
         $scope.stateQuery=-1;
     }
 
+    // *************************** - related to error message logic
+
+   
+    $scope.confirmationDialog = function(item) {
+        $scope.showDialog(true);
+    };
+
+    $scope.executeDialogAction = function(action, param) {
+        if(typeof $scope[action] === "function") {
+                  $scope[action](param);
+        }
+    };
+    
+      
+    $scope.deleteItem = function(item) {
+        console.log("Deleting...");
+        // hide the modal
+        $scope.showDialog();
+        // addition for actual delete logic
+        // go over the todos and look for the item
+        let index = -1;
+        for( let i=0, len= $scope.todoArr.length; i<len; i++){
+            if ($scope.todoArr[i] == item){
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            console.error("cleanItem() faied to find item");
+            return;
+        } else {
+            // check if the item is still not done
+            
+            $scope.todoArr.splice(index, 1);
+        }
+        // reset to show all
+        $scope.stateQuery=-1; 
+    };
+      
+      
+      
+    $scope.showDialog = function(flag) {
+        jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
+    };
     
 });
